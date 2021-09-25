@@ -1,0 +1,103 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="cart-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="main-heading">Shopping Cart</div>
+                <div class="table-cart">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+                                <td>
+                                    <div class="display-flex align-center">
+                                        <div class="img-product">
+                                            <img src="{{ product.product.image.url }}" alt="" class="mCS_img_loaded">
+                                        </div>
+                                        <div class="name-product">
+                                            {{ product.product.name }}
+                                            <br>G2356
+                                        </div>
+                                        <div class="price">
+                                            ${{ product.product.price }}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="product-count">
+                                    <form action="#" class="count-inlineflex">
+                                        <div class="qtyminus"><a
+                                                href="{% url 'reduce-from-cart' product.product.id %}">-</a></div>
+                                        <input type="text" name="quantity" value="{{ product.quantity }}" class="qty">
+                                        <div class="qtyplus"><a
+                                                href="{% url 'add-to-cart' product.product.id 1 %}">+</a>
+                                        </div>
+                                    </form>
+                                </td>
+                                <td>
+                                    <div class="total">
+                                        ${{ product.item_total_price }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="{% url 'remove-from-cart' product.product.id %}"
+                                        class="btn btn-link btn-xs">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.table-cart -->
+            </div>
+            <!-- /.col-lg-8 -->
+            <div class="col-lg-4">
+                <div class="cart-totals">
+                    <h3>Cart Totals</h3>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Subtotal</td>
+                                <td class="subtotal">${{ order.order_price }}</td>
+                            </tr>
+                            <tr>
+                                <td>Quantity</td>
+                                <td class="subtotal">{{ order.order_quantity }}</td>
+                            </tr>
+                            <tr>
+                                <td>Shipping</td>
+                                <td class="free-shipping">Free Shipping</td>
+                            </tr>
+                            <!-- ADD SHIPPING CHARGES TOO -->
+                            <tr class="total-row">
+                                <td>Total</td>
+                                <td class="price-total">${{ order.order_price }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="btn-cart-totals">
+                        <a href="{% url 'shop' %}" class="checkout round-black-btn" title="">Continue Shopping</a>
+                        <a href="{% url 'checkout' %}" class="checkout round-black-btn" title="">Proceed to Checkout</a>
+                    </div>
+                    <!-- /.btn-cart-totals -->
+                </div>
+                <!-- /.cart-totals -->
+            </div>
+            <!-- /.col-lg-4 -->
+        </div>
+        <hr>
+    </div>
+</div>
+{% endblock content %}
