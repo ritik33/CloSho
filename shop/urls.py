@@ -13,4 +13,7 @@ urlpatterns = [
     path('remove-from-cart/<uuid:pk>/',
          views.removeFromCart, name='remove-from-cart'),
     path('process-order/', views.processOrder, name='process-order'),
+    path('wishlist/', views.wishlist, name='wishlist'),
+    path('add-remove-wishlist/<uuid:pk>', views.addRemoveWishlist,
+         name='add-remove-wishlist'),
 ]

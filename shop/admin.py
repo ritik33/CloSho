@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Order, OrderItem, Product, ShippingAddress
+from .models import Category, Order, OrderItem, Product, ShippingAddress, Wishlist
 
 
 @admin.register(Product)
@@ -15,3 +15,4 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Category)
 admin.site.register(OrderItem)
 admin.site.register(ShippingAddress)
+admin.site.register(Wishlist)
