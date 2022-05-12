@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, SignupForm
+from .forms import LoginForm, SignupForm, UpdateProfileForm
 from .models import User
 from django.contrib import messages
 
@@ -28,10 +28,10 @@ def login(request):
             if user is not None:
                 auth.login(request, user)
                 messages.success(request, 'You are successfully logged in.')
-                return redirect('home')
+                return redirect('shop')
     else:
         if request.user.is_authenticated:
-            return redirect('home')
+            return redirect('shop')
         form = LoginForm
     return render(request, 'login.html', {'form': form})
 
@@ -40,11 +40,30 @@ def login(request):
 def logout(request):
     auth.logout(request)
     messages.warning(request, 'You have successfully logged out.')
-    return redirect('home')
+    return redirect('shop')
 
 
 @login_required
-def profile(request):  # , username):
-    # data = User.objects.all(username=username)
-    # context = {'data': data}
-    return render(request, 'profile.html')  # , context)
+def profile(request):
+    username = request.user
+    user_info = User.objects.get(username=username)
+    context = {'user_info': user_info}
+    return render(request, 'profile.html', context)
+
+
+@login_required
+def updateProfile(request):
+    if request.method == 'POST':
+        form = UpdateProfileForm(
+            request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile Updated.')
+            return redirect('profile')
+        else:
+            messages.warning(request, 'Invalid form data.')
+            return redirect('update-profile')
+    else:
+        form = UpdateProfileForm(instance=request.user)
+        context = {'form': form}
+        return render(request, 'update-profile.html', context)

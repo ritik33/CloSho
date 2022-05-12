@@ -17,7 +17,7 @@ class UserAdmin(admin.ModelAdmin):
         }),
         ('Personal Information', {
             "fields": (
-                'first_name', 'last_name', 'dob', 'avatar', 'sex', 'phone_number'
+                'first_name', 'last_name', 'avatar', 'sex', 'phone_number'
 
             ),
         }),

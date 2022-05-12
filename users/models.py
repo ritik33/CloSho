@@ -2,25 +2,23 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import UserManager
 import uuid
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id = models.UUIDField(default=uuid.uuid4, max_length=10,
-                          primary_key=True, unique=True)
-    username = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(max_length=254, unique=True)
+    id = models.UUIDField(default=uuid.uuid4, max_length=10, primary_key=True)
+    username = models.CharField(max_length=50, unique=True, blank=True)
+    email = models.EmailField(max_length=254, unique=True, blank=True)
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
-    dob = models.DateField(verbose_name='DOB',
-                           auto_now=False, auto_now_add=False, null=True, blank=True)
-    avatar = models.ImageField(upload_to='avatar', blank=True, null=True)
+    avatar = models.ImageField(
+        upload_to='avatar', default='avatar/default.png', blank=True, null=True)
     choose_sex = (
         ('Male', 'Male'),
         ('Female', 'Female'),
-        ('Others', 'Others')
     )
     sex = models.CharField(max_length=50, choices=choose_sex, blank=True)
-    phone_number = models.PositiveIntegerField(blank=True, null=True)
+    phone_number = PhoneNumberField(null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

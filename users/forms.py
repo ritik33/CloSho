@@ -6,9 +6,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(required=True, label='', widget=forms.EmailInput(
-        attrs={'class':'form-control','placeholder': 'Email'}))
+        attrs={'class': 'form-control', 'placeholder': 'Email'}))
     password = forms.CharField(required=True, label='', widget=forms.PasswordInput(
-        attrs={'class':'form-control','placeholder': 'Password'}))
+        attrs={'class': 'form-control', 'placeholder': 'Password'}))
 
     class Meta:
         model = User
@@ -16,13 +16,31 @@ class LoginForm(AuthenticationForm):
 
 class SignupForm(UserCreationForm):
     password1 = forms.CharField(required=True, label='', widget=forms.PasswordInput(
-        attrs={'class':'form-control','placeholder': 'Password'}))
+        attrs={'class': 'form-control', 'placeholder': 'Password'}))
     password2 = forms.CharField(required=True, label='', widget=forms.PasswordInput(
-        attrs={'class':'form-control','placeholder': 'Confirm Password'}))
+        attrs={'class': 'form-control', 'placeholder': 'Confirm Password'}))
 
     class Meta:
         model = User
         fields = ('email', 'username', 'password1', 'password2')
         labels = {'email': '', 'username': ''}
-        widgets = {'email': forms.EmailInput(attrs={'class':'form-control','placeholder': 'Email'}),
-                   'username': forms.TextInput(attrs={'class':'form-control','placeholder': 'Username'})}
+        widgets = {'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+                   'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'})}
+
+
+class UpdateProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'phone_number',
+                  'first_name', 'last_name', 'sex', 'avatar')
+        labels = {'username': '', 'email': '', 'phone_number': '',
+                  'first_name': '', 'last_name': '', 'sex': '', 'avatar': ''}
+        widgets = {'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}),
+                   'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+                   'phone_number': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'}),
+                   'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}),
+                   'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}),
+                   'sex': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Sex'}),
+                   'avatar': forms.FileInput(attrs={'class': 'form-control', 'placeholder': 'Avatar'})
+                   }
