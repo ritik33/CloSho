@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, SignupForm, UpdateProfileForm
+from .forms import LoginForm, SignupForm, UpdateProfileForm, UpdatePasswordForm
 from .models import User
 from django.contrib import messages
 
@@ -67,3 +67,21 @@ def updateProfile(request):
         form = UpdateProfileForm(instance=request.user)
         context = {'form': form}
         return render(request, 'update-profile.html', context)
+
+
+@login_required
+def updatePassword(request):
+    if request.method == 'POST':
+        form = UpdatePasswordForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            auth.update_session_auth_hash(request, form.user)
+            messages.success(request, 'Password changed successfully.')
+            return redirect('profile')
+        else:
+            messages.warning(request, 'Invalid password.')
+            return redirect('update-password')
+    else:
+        form = UpdatePasswordForm(user=request.user)
+        context = {'form': form}
+        return render(request, 'update-password.html', context)
