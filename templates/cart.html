@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <div class="main-heading">Shopping Cart</div>
+                <div class="main-heading h2">Shopping Cart</div>
                 <div class="table-cart">
                     <table>
                         <thead>
@@ -14,7 +14,6 @@
                                 <th>Product</th>
                                 <th>Quantity</th>
                                 <th>Total</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -23,14 +22,16 @@
                                 <td>
                                     <div class="display-flex align-center">
                                         <div class="img-product">
-                                            <img src="{{ product.product.image.url }}" alt="" class="mCS_img_loaded">
+                                            <a href="{% url 'shop-single' product.product.id %}"><img
+                                                    src="{{ product.product.image.url }}" alt=""
+                                                    class="mCS_img_loaded"></a>
                                         </div>
                                         <div class="name-product">
-                                            {{ product.product.name }}
-                                            <br>G2356
+                                            <a class="text-dark"
+                                                href="{% url 'shop-single' product.product.id %}">{{ product.product.name }}</a>
                                         </div>
                                         <div class="price">
-                                            ${{ product.product.price }}
+                                            ₹ {{ product.product.price }}
                                         </div>
                                     </div>
                                 </td>
@@ -46,7 +47,7 @@
                                 </td>
                                 <td>
                                     <div class="total">
-                                        ${{ product.item_total_price }}
+                                        ₹ {{ product.item_total_price }}
                                     </div>
                                 </td>
                                 <td>
@@ -60,9 +61,7 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- /.table-cart -->
             </div>
-            <!-- /.col-lg-8 -->
             <div class="col-lg-4">
                 <div class="cart-totals">
                     <h3>Cart Totals</h3>
@@ -70,7 +69,7 @@
                         <tbody>
                             <tr>
                                 <td>Subtotal</td>
-                                <td class="subtotal">${{ order.order_price }}</td>
+                                <td class="subtotal">₹ {{ order.order_price }}</td>
                             </tr>
                             <tr>
                                 <td>Quantity</td>
@@ -80,22 +79,18 @@
                                 <td>Shipping</td>
                                 <td class="free-shipping">Free Shipping</td>
                             </tr>
-                            <!-- ADD SHIPPING CHARGES TOO -->
                             <tr class="total-row">
                                 <td>Total</td>
-                                <td class="price-total">${{ order.order_price }}</td>
+                                <td class="price-total">₹ {{ order.order_price }}</td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="btn-cart-totals">
-                        <a href="{% url 'shop' %}" class="checkout round-black-btn" title="">Continue Shopping</a>
-                        <a href="{% url 'checkout' %}" class="checkout round-black-btn" title="">Proceed to Checkout</a>
+                        <a href="{% url 'shop' %}" class="checkout round-black-btn">Continue Shopping</a>
+                        <a href="{% url 'checkout' %}" class="checkout round-black-btn">Proceed to Checkout</a>
                     </div>
-                    <!-- /.btn-cart-totals -->
                 </div>
-                <!-- /.cart-totals -->
             </div>
-            <!-- /.col-lg-4 -->
         </div>
         <hr>
     </div>

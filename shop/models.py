@@ -4,6 +4,7 @@ from django.db import models
 from users.models import User
 from django.core.validators import MinValueValidator
 import uuid
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Category(models.Model):
@@ -36,7 +37,7 @@ class Product(models.Model):
 class ShippingAddress(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    phone_number = models.PositiveIntegerField()
+    phone_number = PhoneNumberField()
     address = models.CharField(max_length=254)
     zipcode = models.PositiveIntegerField()
     city = models.CharField(max_length=50)
@@ -70,7 +71,12 @@ class Order(models.Model):
     products = models.ManyToManyField(OrderItem)
     created = models.DateTimeField(auto_now_add=True, null=True)
     completed = models.BooleanField(default=False)
-    transaction_id = models.CharField(max_length=100)
+    razorpay_payment_id = models.CharField(
+        max_length=250, null=True, blank=True, unique=True)
+    razorpay_order_id = models.CharField(
+        max_length=250, null=True, blank=True, unique=True)
+    razorpay_signature = models.CharField(
+        max_length=250, null=True, blank=True, unique=True)
 
     class Meta:
         ordering = ('-created',)

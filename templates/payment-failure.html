@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="col-md-6 mx-auto mt-5 mb-5">
+        <h1>Payment Failed</h1>
+        <a href="{% url 'shop' %}" class="btn btn-primary">Go to Home</a>
+        <a href="{% url 'cart' %}" class="btn btn-primary">Go to Cart</a>
+    </div>
+</div>
+
+{% endblock content %}

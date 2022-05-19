@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # local apps
-    'pages',
     'users',
     'shop',
+    # third party
+    'phonenumber_field',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [
@@ -81,8 +83,12 @@ WSGI_APPLICATION = 'closho.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'closho',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -139,3 +145,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/login/'
+
+
+# razorpay details
+RAZOR_KEY_ID = "rzp_test_ciTK5abEK8Dz9k"
+RAZOR_KEY_SECRET = "faRynKnRduqHG6yZuFHEhtMV"

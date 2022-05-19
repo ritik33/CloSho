@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.views.generic import TemplateView
+
 
 urlpatterns = [
     path('', views.shop, name='shop'),
@@ -12,8 +14,13 @@ urlpatterns = [
          views.reduceFromCart, name='reduce-from-cart'),
     path('remove-from-cart/<uuid:pk>/',
          views.removeFromCart, name='remove-from-cart'),
-    path('process-order/', views.processOrder, name='process-order'),
     path('wishlist/', views.wishlist, name='wishlist'),
     path('add-remove-wishlist/<uuid:pk>', views.addRemoveWishlist,
          name='add-remove-wishlist'),
+    path('payment/', views.payment, name='payment'),
+    path('callback/', views.callback, name='callback'),
+    path('payment-success/', TemplateView.as_view(template_name='payment-success.html'),
+         name='payment-success'),
+    path('payment-failure/', TemplateView.as_view(template_name='payment-failure.html'),
+         name='payment-failure'),
 ]
