@@ -5,6 +5,7 @@ charset-normalizer==2.0.12
 Django==4.0.4
 django-mathfilters==1.0.0
 django-phonenumber-field==6.1.0
+gunicorn==20.1.0
 idna==3.3
 phonenumbers==8.12.48
 Pillow==9.1.0
