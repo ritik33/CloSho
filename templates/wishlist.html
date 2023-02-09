@@ -35,7 +35,7 @@
                         <div class="card-body">
                             <a href="{% url 'shop-single' product.product.id %}"
                                 class="h3 text-decoration-none">{{ product.product.name }}</a>
-                            <p class="text-center mb-0">${{ product.product.price }}</p>
+                            <p class="text-center mb-0">₹ {{ product.product.price }}</p>
                         </div>
                     </div>
                 </div>
